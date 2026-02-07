@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { formatCurrency } from '../utils';
+import { ComprehensiveAnalyticsChart } from '../../components/charts/ComprehensiveAnalyticsChart';
 
 // 1. Prediction Component Definition
 export const PredictionCard = ({ nextMonth, trend, confidence, reason }) => (
@@ -44,6 +45,18 @@ export const HealthSchema = z.object({
 });
 
 // Register all components
+
+export const ComprehensiveAnalyticsSchema = z.object({
+  expenses: z.array(z.object({
+    id: z.string().optional(),
+    amount: z.number(),
+    date: z.string(),
+    category: z.string(),
+    description: z.string().optional()
+  })).describe("List of expenses to visualize"),
+  title: z.string().optional().describe("Title of the chart")
+});
+
 export const tamboComponents = [
   {
     name: "PredictionCard",
@@ -56,5 +69,11 @@ export const tamboComponents = [
     description: "Displays group financial health score",
     component: HealthCard,
     propsSchema: HealthSchema
+  },
+  {
+    name: "ComprehensiveAnalyticsChart",
+    description: "Displays detailed expense analysis with Bar, Line, and Pie charts",
+    component: ComprehensiveAnalyticsChart,
+    propsSchema: ComprehensiveAnalyticsSchema
   }
 ];

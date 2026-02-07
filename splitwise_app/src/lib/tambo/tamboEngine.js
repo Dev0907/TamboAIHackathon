@@ -4,6 +4,7 @@ export const TAMBO_API_KEY = import.meta.env.VITE_TAMBO_API_KEY;
 import { addExpense } from '../../store/slices/expenseSlice';
 import { addGroup } from '../../store/slices/groupSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { parse, isSameDay, format } from 'date-fns';
 import {
   makeGetGroupAnalytics,
   makeGetUserAnalytics,
@@ -22,7 +23,9 @@ const PATTERNS = {
   PREDICT: /predict|future|forecast/i,
   PERSONALITY: /personality|spender\s+type|what\s+kind\s+of\s+spender/i,
   HEALTH: /health|score|safe/i,
-  ANOMALY: /unusual|anomaly|weird|spike/i
+  ANOMALY: /unusual|anomaly|weird|spike/i,
+  COMPREHENSIVE: /date\s+wise|category\s+wise|comprehensive|full\s+analysis|detailed\s+breakdown|advanced\s+chart/i,
+  DATE_QUERY: /\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?\b/i
 };
 
 export class TamboAgent {
@@ -95,6 +98,8 @@ export class TamboAgent {
     if (input.match(PATTERNS.PREDICT)) return this.handlePrediction();
     if (input.match(PATTERNS.PERSONALITY)) return this.handlePersonality();
     if (input.match(PATTERNS.ANOMALY)) return this.handleAnomalies();
+    if (input.match(PATTERNS.COMPREHENSIVE)) return this.handleComprehensiveAnalyticsQuery();
+    if (input.match(PATTERNS.DATE_QUERY)) return this.handleDateQuery(input);
 
     // New Feature: Settlement Advice
     if (input.match(/settle|pay|clear debt/i)) return this.handleSettlement();
@@ -482,6 +487,74 @@ export class TamboAgent {
       text: `You have spent $${analytics.totalShare.toFixed(2)} total. Top category: ${topCategory ? topCategory.name : 'None'}.`,
       type: 'chart-spending',
       data: analytics.categoryBreakdown
+    };
+  }
+
+  handleComprehensiveAnalyticsQuery() {
+    const state = this.store.getState();
+    const currentUser = state.users.currentUser;
+
+    // Get all expenses that are relevant to the user
+    // Simple filter: Paid by user OR split includes user
+    const expenses = selectAllExpenses(state).filter(e => {
+      return e.paidBy === currentUser.id || e.splits.some(s => s.userId === currentUser.id);
+    });
+
+    if (expenses.length === 0) {
+      return { text: "No expenses found to analyze.", type: 'text' };
+    }
+
+    return {
+      text: "Here is your detailed date-wise and category-wise analysis.",
+      type: 'chart-comprehensive',
+      data: expenses
+    };
+  }
+  handleDateQuery(input) {
+    const state = this.store.getState();
+    const currentUser = state.users.currentUser;
+
+    const dates = [];
+    const dateRegex = new RegExp(PATTERNS.DATE_QUERY, 'gi');
+    const matches = [...input.matchAll(dateRegex)];
+
+    for (const match of matches) {
+      // Normalize month to 3 chars for reliable parsing with MMM
+      const monthStr = match[1].substring(0, 3);
+      const dayStr = match[2];
+      const currentYear = new Date().getFullYear();
+
+      const dateString = `${monthStr} ${dayStr} ${currentYear}`;
+      const parsedDate = parse(dateString, 'MMM d yyyy', new Date());
+
+      if (!isNaN(parsedDate)) {
+        dates.push(parsedDate);
+      }
+    }
+
+    if (dates.length === 0) {
+      return { text: "I detected a date but couldn't understand it. Try 'Jan 3'", type: 'text' };
+    }
+
+    const allExpenses = selectAllExpenses(state).filter(e => {
+      return e.paidBy === currentUser.id || e.splits.some(s => s.userId === currentUser.id);
+    });
+
+    const relevantExpenses = allExpenses.filter(e => {
+      const expenseDate = new Date(e.date);
+      return dates.some(queryDate => isSameDay(expenseDate, queryDate));
+    });
+
+    const dateStrings = dates.map(d => format(d, 'MMM do')).join(dates.length > 1 ? ' vs ' : '');
+
+    if (relevantExpenses.length === 0) {
+      return { text: `No expenses found for ${dateStrings}.`, type: 'text' };
+    }
+
+    return {
+      text: `Expense analysis for ${dateStrings}:`,
+      type: 'chart-comprehensive',
+      data: relevantExpenses
     };
   }
 }

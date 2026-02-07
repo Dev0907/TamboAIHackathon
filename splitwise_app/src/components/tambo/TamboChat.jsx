@@ -7,6 +7,7 @@ import { cn, formatCurrency } from '../../lib/utils';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, LineChart, Line, CartesianGrid } from 'recharts';
 import { useTambo } from "@tambo-ai/react";
 import { EXPENSES } from '../../utils/mockData';
+import { ComprehensiveAnalyticsChart } from '../charts/ComprehensiveAnalyticsChart';
 
 // Mini Chart Components
 // Mini Chart Components
@@ -285,6 +286,16 @@ const MessageContent = ({ msg }) => {
       </div>
     )
   }
+
+  if (msg.type === 'chart-comprehensive') {
+    return (
+      <div className="flex flex-col gap-2 w-full min-w-[300px]">
+        <p className="text-sm">{msg.text}</p>
+        <ComprehensiveAnalyticsChart expenses={msg.data} title="Detailed Analysis" />
+      </div>
+    )
+  }
+
   // Fallback text
   return <p>{msg.text}</p>;
 };
