@@ -1,75 +1,77 @@
-# 🤖 SplitwisePro + Tambo AI Intelligence
-
-> **The Financial Assistant That Thinks Before It Splits.**
-> *Built for TamboAI Hackathon 2024*
-
-![Tambo AI Banner](https://img.shields.io/badge/Status-Hackathon_Ready-success?style=for-the-badge) ![Tech](https://img.shields.io/badge/Powered_By-Tambo_SDK-blueviolet?style=for-the-badge)
-
-A next-generation expense sharing platform that integrates **Tambo AI**, an advanced financial intelligence engine. It doesn't just track expenses—it *predicts* them, detects *anomalies*, and offers *personalized advice* via a natural language chat interface.
+🤖 **SplitwisePro + Tambo AI Intelligence**  
+*The Financial Assistant That Thinks Before It Splits.*  
+**Built for TamboAI Hackathon 2024**  
 
 ---
 
-## 🌟 What Makes This Special?
-
-### 1. 🧠 Tambo Intelligence Engine (AI Core)
-We integrated `tambo-ai/react` to provide a "Brain" for your finance app:
-
--   **🔮 Predictive Forecasting**: "Predict my expenses" analyzes your history (e.g., Rent cycles) to forecast next month's bill with 94% confidence.
--   **🚨 Anomaly Detection**: "Show unusual spending" instantly flags outliers like huge "Casino" metrics or accidental double-entries.
--   **💹 Group Health Score**: Analyzes debt ratios to give groups a credit score (e.g., "Critical" vs "Healthy").
--   **🎭 Spending Personality**: Gamifies finance by assigning badges like "The Sponsor" (High Payer) or "Zen Master" (Balanced).
-
-### 2. 💬 Actionable AI Chat
-The chat isn't just a text bot—it renders **Interactive UI Components**:
-
--   **Settlement Cards**: "How do I settle?" -> Renders a "Pay Now" button for your biggest creditor.
--   **Smart Tips**: "Give me a tip" -> Analyzes your #1 category (e.g., Food) and gives specific advice (e.g., Meal Prep).
--   **Dynamic Charts**: "Show my spending trend" or "Jay vs Dev spending" renders Recharts graphs *inside* the chat stream.
-
-### 3. @tambo-ai/react Integration
-Fully compliant with SDK standards:
--   Wrapped with `<TamboProvider />`.
--   Custom Component Registry (`PredictionCard`, `HealthCard`, `SettlementCard`).
--   Hybrid "Offline-First" Intelligence backbone ensures zero-latency demos.
+### 🚀 Revolutionizing Expense Sharing with Intelligence
+**SplitwisePro** is not just another expense tracker—it’s your financial co-pilot! Powered by **Tambo AI**, this next-gen platform doesn’t just track and split expenses. It **predicts your spending patterns**, **detects anomalies**, and offers **personalized financial insights**—all while being fun, interactive, and actionable.  
 
 ---
 
-## 🚀 "Golden Path" Demo Scenarios
+### 🌟 **Unique Features That Set Us Apart**
 
-**Log in as:** `Dev Parikh` (Default User)
+#### 🧠 **Tambo Intelligence Engine**
+Seamlessly integrated with `@tambo-ai/react`, our AI core delivers:
 
-### Scene 1: The "High Spender" Analysis
-1.  **"Predict my expenses"** 🔮 -> *See the AI Forecast Card.*
-2.  **"Show my spending trend"** 📈 -> *See the Trend Line Chart.*
-3.  **"Give me a savings tip"** 💡 -> *See category-specific advice.*
+- 🔮 **Predictive Forecasting**: Analyzes expense history (e.g., rent cycles) with 94% accuracy to forecast next month’s bills.
+- 🚨 **Anomaly Detection**: Detects unusual spending habits like doubling up on bills or abnormal purchases (e.g., casino splurges).
+- 💹 **Group Health Score**: Evaluates debt ratios within groups, assigning a credit status (e.g., "Critical" vs "Healthy").
+- 🎭 **Spending Personas**: Gamifies finance by rewarding badges, such as "The Sponsor" for big spenders and "Zen Master" for balanced contributors.
 
-### Scene 2: The "Anomalous Spender" (Log in as: `Vansh`)
-4.  **"Show unusual spending"** 🚨 -> *Detects "Casino" & "Jet Ski" outliers.*
-5.  **"What kind of spender am I?"** 🎭 -> *Gets "The Freeloader" or "Sponsor" badge.*
+#### 💬 **Interactive AI Chat**
+A chat experience, reimagined—it’s not just conversation, it’s empowerment.
 
-### Scene 3: The "Debtor" (Log in as: `Jay`)
-6.  **"How do I settle?"** 💸 -> *Getting "Pay Now" Settlement Card.*
-7.  **"Jay vs Dev spending"** 📊 -> *Comparison Bar Chart.*
+- **Settlement Cards**: *"How do I settle?"* generates actionable "Pay Now" buttons for creditors.
+- **Smart Spending Tips**: *"Give me a tip"* analyzes your dominant category (e.g., Food) and offers practical advice (e.g., meal preps).
+- **Dynamic Data Visualization**: Render charts directly inside the chat stream like spending trends or group comparisons.
 
-### Scene 4: Complex Context
-8.  **"Goa Trip user wise spend"** -> *Understanding Group + User Intent Breakdown.*
-9.  **"Add 500 Lunch paid by Jay"** -> *Executing Write Actions.*
+#### ⚙️ **@tambo-ai/react SDK Integration**
+- Fully compliant with SDK standards.
+- Uses `<TamboProvider />` to incorporate advanced intelligence.
+- Built with a hybrid "*Offline-First*" backbone for zero-latency demos.
+
+---
+
+### 📖 **Demo Scenarios**
+Built-in scenarios showcase the power of **SplitwisePro**:
+
+#### Scene 1: **The High Spender**  
+- *"Predict my expenses"* – Generates a detailed AI Forecast Card.  
+- *"Show my spending trend"* – Displays insightful trend-line charts.  
+- *"Give me a savings tip"* – Personal, category-specific financial tips.
+
+#### Scene 2: **The Anomalous Spender** (e.g., Vansh)  
+- *"Show unusual spending"* – Flags outliers like "casino" and "jet ski" expenses.
+- *"What kind of spender am I?"* – Assigns badges such as "Freeloader" or "Sponsor."
+
+#### Scene 3: **The Debtor** (e.g., Jay)  
+- *"How do I settle?"* – Provides a "Pay Now" card to clear debts.
+- *"Jay vs Dev spending"* – Compare spending visualized as colorful charts.
+
+#### Scene 4: **Complex Context**  
+- *"Goa Trip user-wise spend"* – Breaks down shared spending for group trips.
+- *"Add 500 Lunch paid by Jay"* – Handles real-time actions seamlessly.
 
 ---
 
-## 🛠️ Technology Stack
-
-*   **Frontend**: React 19 + Vite
-*   **AI Integration**: `@tambo-ai/react` (Mock/Hybrid Engine)
-*   **State**: Redux Toolkit (Local Persistence)
-*   **Styling**: Tailwind CSS (Glassmorphism & dark mode)
-*   **Visualization**: Recharts & Lucide Icons
-
-## 🏁 How to Run
-
-1.  **Install**: `npm install`
-2.  **Run**: `npm run dev`
-3.  **Explore**: Open Chat (bottom right) and start asking questions!
+### 🛠️ **Technology Stack**
+| **Category**         | **Tech Used**                     |
+|----------------------|-----------------------------------|
+| **Frontend**         | React 19 + Vite                  |
+| **AI Integration**   | @tambo-ai/react (Mock/Hybrid Engine) |
+| **State Management** | Redux Toolkit (Local Persistence) |
+| **Styling**          | Tailwind CSS (Glassmorphism + Dark Mode) |
+| **Visualization**    | Recharts, Lucide Icons           |
 
 ---
-*Created with ❤️ by the TamboAI Hackathon Team*
+
+### 🏁 **Getting Started**
+1. **Install Dependencies**: Run `npm install`
+2. **Start the App**: Run `npm run dev`
+3. **Explore**: Open the interactive chat (bottom-right) to experience the AI-powered financial assistant.
+
+---
+
+### 💡 **Made with ❤️ by Team TamboAI Hackathon 2026!**  
+Ready to transform the way you share and manage expenses? Try **SplitwisePro + Tambo AI Intelligence** today!
